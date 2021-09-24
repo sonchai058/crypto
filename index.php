@@ -1,5 +1,6 @@
 ﻿<?php
 include('_inc.php');
+checkLogin();
 ?>
 
 <!DOCTYPE html>
