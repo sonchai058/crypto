@@ -36,3 +36,30 @@ http://localhost/crypto/
 http://localhost/crypto/step1_api_example.php
 https://fontawesome.com/v4.7/icons/
 http://www.thaifundstoday.com/?fbclid=IwAR0yCnncs9_zxv6bcK6IG07UIjy5_tkZpCI_e6Xa_zmCLK1f8TCbvpLsyJk
+
+
+DBname : coindcatod_ay
+user : coindcatod_ay
+pass : Av3OleqlqP
+
+Directadmin : http://119.59.116.231:2222/
+U : coindcatod
+P : 1q2w3e4r^^
+
+Domain Name : coindcatoday.com
+
+FTP accounts:   1
+Anonymous FTP:  OFF
+FTP Server:     ftp.coindcatoday.com
+Login:  coindcatod
+Password:       1q2w3e4r^^
+
+119.59.116.231
+21
+
+http://119.59.116.231/phpmyadmin/tbl_structure.php?db=coindcatod_ay&table=port&token=b66179bd0aab6d0368b513e05809036b
+
+https://www.codegrepper.com/code-examples/php/how+to+make+a+variable+global+in+php
+
+
+https://datatables.net/examples/styling/bootstrap4

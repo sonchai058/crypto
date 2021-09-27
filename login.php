@@ -44,9 +44,9 @@ include('_inc.php');
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form id="#formLogin" action="" method="post" class="form-element">
+    <form id="formLogin" action="" method="post" class="form-element">
       <div class="form-group has-feedback">
-        <input name="username" type="text" class="form-control" placeholder="Username or Email">
+        <input autofocus name="username" type="text" class="form-control" placeholder="Username or Email">
         <span class="ion ion-email form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -124,7 +124,7 @@ $.ajax({
     console.log(data);
     if(data.status=='success') {
       //location.reload();
-      //window.location.replace('<?php echo $base_url.'index.php';?>');
+      window.location.replace('<?php echo $base_url.'index.php';?>');
     }else {
       alert(data.message);
     }
