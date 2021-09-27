@@ -116,7 +116,7 @@ $("#btnLogin").click(function(){
 //alert(',..1');
 $.ajax({
   type: "POST",
-  url: <?php echo $base_url.'ajax_permission.php?login=check';?>,
+  url: '<?php echo $base_url.'ajax_permission.php?login=check';?>',
   data: $("#formLogin").serialize(), // serializes the form's elements.
   success: function(data)
   {
@@ -124,7 +124,7 @@ $.ajax({
     console.log(data);
     if(data.status=='success') {
       //location.reload();
-      window.location.replace(<?php echo $base_url.'index.php';?>);
+      //window.location.replace('<?php echo $base_url.'index.php';?>');
     }else {
       alert(data.message);
     }

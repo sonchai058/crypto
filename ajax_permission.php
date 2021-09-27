@@ -16,9 +16,17 @@ if(isset($_GET['login'])) {
       }
 }
 
-echo json_encode(array(
-    'status' => 'success',
-    'message'=> 'ดึงข้อมูลสำเร็จ',
-    'data'=> $rs_arr
-));
+if(count($rs_arr)>0) {
+    echo json_encode(array(
+        'status' => 'success',
+        'message'=> 'ดึงข้อมูลสำเร็จ',
+        'data'=> $rs_arr
+    ));
+}else {
+    echo json_encode(array(
+        'status' => 'false',
+        'message'=> 'ดึงข้อมูลล้มเหลว!',
+        'data'=> $rs_arr
+    )); 
+}
 ?>
