@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$conn = null;
 connectDB();
 $base_url = "http://localhost/crypto/";
 
@@ -23,6 +24,10 @@ function connectDB() {
     if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
     }
+}
+
+function query($sql="") {
+    return $conn->query($sql);
 }
 
 function Redirect($url, $permanent = false)

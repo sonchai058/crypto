@@ -44,13 +44,13 @@ include('_inc.php');
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="<?php echo $base_url;?>index.html" method="post" class="form-element">
+    <form id="#formLogin" action="" method="post" class="form-element">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Username or Email">
+        <input name="username" type="text" class="form-control" placeholder="Username or Email">
         <span class="ion ion-email form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input name="password" type="password" class="form-control" placeholder="Password">
         <span class="ion ion-locked form-control-feedback"></span>
       </div>
       <div class="row">
@@ -116,17 +116,16 @@ $("#btnLogin").click(function(){
 //alert(',..1');
 $.ajax({
   type: "POST",
-  url: 'http://jungle.codedee.systems/api/login_service',
+  url: <?php echo $base_url.'ajax_permission.php?login=check';?>,
   data: $("#formLogin").serialize(), // serializes the form's elements.
   success: function(data)
   {
     //alert(data.message);
-    //console.log(data);
+    console.log(data);
     if(data.status=='success') {
       //location.reload();
-      window.location.replace('http://jungle.codedee.systems/api/');
+      window.location.replace(<?php echo $base_url.'index.php';?>);
     }else {
-      $("#pwd").select();
       alert(data.message);
     }
   }
