@@ -19,7 +19,7 @@ https://drive.google.com/file/d/1p7ZRsa1JrQXywKmKd_fS_J8OlwBBxpd0/view?usp=shari
 #2
 
 ขอบเขต
-1. ระบบล็อคอิน username,password
+1. ระบบล็อคอิน username,password 
 2.ระบบ Register สมาชิก (แบบธรรมดา)
 3. Dashboard สำหรับ แสดงและจัดการเหรียญ ดิจิตอล
    3.1 ดึงข้อมูลราคาเหรียญดิจิตอล ปัจจุบันจาก link ที่ให้ มาอัปเดต โดยจะทำ Crontab ไว้ให้

@@ -86,11 +86,11 @@ include('_inc.php');
     </div>
 
 
-    <div class="margin-top-30 text-center">
-    	<p>Don't have an account? <a href="register.html" class="text-info m-l-5">Sign Up</a></p>
-    </div>
-    -->
 
+    -->
+    <div class="margin-top-30 text-center">
+    	<p>Don't have an account? <a href="<?php echo $base_url.'register.php'?>" class="text-info m-l-5">Sign Up</a></p>
+    </div>
   </div>
   <!-- /.login-box-body -->
 </div>

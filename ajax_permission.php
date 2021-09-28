@@ -18,22 +18,23 @@ if(isset($_GET['login'])) {
           $rs_arr[] = $row;
         }
       }
+
+    if(count($rs_arr)>0) {
+        $_SESSION['login'] = $rs_arr[0];
+        echo json_encode(array(
+            'status' => 'success',
+            'message'=> 'Login Success',
+            'data'=> $rs_arr
+        ));
+    }else {
+        echo json_encode(array(
+            'status' => 'false',
+            'message'=> 'Login Failed!',
+            'data'=> $rs_arr,
+            'ddd'=>"select * from member where username='{$username}' and password='{$password}' and sts=1",
+            'rs'=>$rs
+        )); 
+    }
 }
 
-if(count($rs_arr)>0) {
-    $_SESSION['login'] = $rs_arr[0];
-    echo json_encode(array(
-        'status' => 'success',
-        'message'=> 'Login Success',
-        'data'=> $rs_arr
-    ));
-}else {
-    echo json_encode(array(
-        'status' => 'false',
-        'message'=> 'Login Failed!',
-        'data'=> $rs_arr,
-        'ddd'=>"select * from member where username='{$username}' and password='{$password}' and sts=1",
-        'rs'=>$rs
-    )); 
-}
 ?>

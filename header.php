@@ -356,7 +356,7 @@ checkLogin();
                   </div>
 				<div role="separator" class="divider col-12"></div>
 				  <div class="col-12 text-left">
-                    <a href="#"><i class="fa fa-power-off"></i> Logout</a>
+                    <a href="<?php echo $base_url.'logout.php';?>"><i class="fa fa-power-off"></i> Logout</a>
                   </div>				
                 </div>
                 <!-- /.row -->
@@ -390,7 +390,7 @@ checkLogin();
           <img src="<?php echo $base_url;?>images/user2-160x160.png" class="rounded-circle" alt="User Image">
         </div>
         <div class="info">
-          <p>Admin Template</p>
+          <p><?php echo $_SESSION['login']['username'];?></p>
 			<a href="" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i class="ion ion-gear-b"></i></a>
             <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="ion ion-android-mail"></i></a>
             <a href="<?php echo $base_url.'logout.php';?>" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="ion ion-power"></i></a>
@@ -400,17 +400,22 @@ checkLogin();
       <ul class="sidebar-menu" data-widget="tree">
 		<li class="nav-devider"></li>
         <li class="header nav-small-cap">PERSONAL</li>
-
-        <li <?php if(basename($_SERVER['REQUEST_URI'])=='index.php'){?> class="active" <?php }?>>
+        <li <?php if(basename($_SERVER['REQUEST_URI'])=='index.php' || basename($_SERVER['REQUEST_URI'])=='crypto'){?> class="active" <?php }?>>
           <a href="<?php echo $base_url.'index.php';?>">
             <i class="icon-home"></i> <span>Dashboard</span>
           </a>
         </li>
+        <?php 
+        if($_SESSION['login']['member_type_id']=='2') {
+        ?>
         <li <?php if(basename($_SERVER['REQUEST_URI'])=='members.php'){?> class="active" <?php }?>>
           <a href="<?php echo $base_url.'members.php';?>">
           <i class="fa fa-users" aria-hidden="true"></i> <span>Members</span>
           </a>
         </li>
+        <?php
+        }
+        ?>
         <li>
           <a href="<?php echo $base_url.'logout.php';?>">
             <i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout</span>

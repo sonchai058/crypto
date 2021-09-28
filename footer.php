@@ -243,10 +243,11 @@
   <?php 
   if($page=='index.php') {
   ?>
+<!--
 	<script src="js/pages/dashboard-chart.js"></script>
 	
-	<!-- Crypto_Admin for demo purposes -->
 	<script src="js/demo.js"></script>
+  -->
   <?php
   }
   ?>

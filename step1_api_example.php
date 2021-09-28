@@ -1,17 +1,14 @@
 <?php
+include('_inc.php');
 header('Content-Type: application/json');
 ?>
-
-/**
- * Requires curl enabled in php.ini
- **/
 
 <?php
 $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
 $parameters = [
   'start' => '1',
   'limit' => '5000',
-  'convert' => 'USD'
+  'convert' => 'BTH'
 ];
 
 $headers = [
@@ -32,5 +29,26 @@ curl_setopt_array($curl, array(
 
 $response = curl_exec($curl); // Send the request, save the response
 print_r(json_decode($response)); // print json decoded response
+
+$rs = json_decode($response);
+$coin_system = query("SELECT coin FROM `port` WHERE sts=1 group by coin");
+if ($coin_system->num_rows > 0) {
+  // output data of each row
+  while($row = $coin_system->fetch_assoc()) {
+
+    foreach ($rs->data as $key=>$data) {
+      if($row['coin']==$data->symbol) {
+        $row_insert = query("insert into dataImport (label,data) values('".$data->symbol."','".json_encode($data)."')");
+        break;
+      }
+    }
+
+  }
+}
+
 echo json_encode(curl_close($curl)); // Close request
+
+
+
+
 ?>

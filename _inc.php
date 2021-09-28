@@ -7,6 +7,7 @@ $base_url = "http://localhost/crypto/";
 connectDB();
 
 function checkLogin() {
+    global $conn;
         //checj login
     if(!isset($_SESSION['login'])) {
         Redirect($base_url.'login.php', false);
@@ -46,5 +47,11 @@ function Redirect($url, $permanent = false)
     exit();
 }
 
+function date2thai($datetime='') {
+	$arr=explode(' ',$datetime);
+	$date = $arr[0];
+	$time = $arr[1];
+	return substr($date,8,2).'/'.substr($date,5,2).'/'.(substr($date,0,4)).' '.substr($time,0,5);
+}
 
 ?>
