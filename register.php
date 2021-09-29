@@ -106,8 +106,8 @@ include('_inc.php');
                                     <br/>
                                     <div class="row">
                                         <div class="col-12 text-center" style="text-align:center">
-                                            <a href="#" id="bt_addSubmit" class="btn btn-primary"><i class="fa fa-plus"></i> สมัครสมาชิก</a>
-                                            <a href="#" class="btn btn-danger" onclick="history.back();"><i class="fa fa-times" aria-hidden="true"></i> ยกเลิก</a>
+                                            <a href="#" id="bt_addSubmit" class="btn btn-primary"><i class="fa fa-plus"></i> Register</a>
+                                            <a href="#" class="btn btn-danger" onclick="history.back();"><i class="fa fa-times" aria-hidden="true"></i> Cancel</a>
                                         </div>
                                     </div>
                                 </form>

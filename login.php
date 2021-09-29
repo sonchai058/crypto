@@ -53,6 +53,10 @@ include('_inc.php');
         <input name="password" type="password" class="form-control" placeholder="Password">
         <span class="ion ion-locked form-control-feedback"></span>
       </div>
+      <div class="form-group has-feedback">
+        <select id="language" class="form-control"><option value="ENG">Language ENG</option><option value="TH">Language TH</option></select>
+        <span class="ion ion-locked form-control-feedback"></span>
+      </div>
       <div class="row">
        <!--  
       <div class="col-6">
@@ -124,7 +128,7 @@ $.ajax({
     console.log(data);
     if(data.status=='success') {
       //location.reload();
-      window.location.replace('<?php echo $base_url.'index.php';?>');
+      window.location.replace('<?php echo $base_url.'index.php?language=';?>'+$("#language").val());
     }else {
       alert(data.message);
     }

@@ -10,17 +10,20 @@ $page = "index.php";
     <section class="content">
     <div class="row">
         <div class="col-12 text-right">
-            <button type="button" data-toggle="modal" data-target="#myModalAdd" class="btn btn-success btn-md">+ ADD</button>
+            <button type="button" data-toggle="modal" data-target="#myModalAdd" class="btn btn-success btn-md"><?php echo label('add');?></button>
         </div>
     </div>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Coin</th>
-				<th>Amount</th>
-                <th>Buy</th>
-                <th>Sell</th>
-                <th>Update</th>
+                <th><?php echo label('coin');?></th>
+				        <th><?php echo label('amount');?></th>
+                <th><?php echo label('buy_unit');?></th>
+                <th><?php echo label('buy');?></th>
+                <th><?php echo label('sell_unit');?></th>
+                <th><?php echo label('sell');?></th>
+                <th><?php echo label('difference');?></th>
+                <th><?php echo label('update');?></th>
                 <th>#</th>
             </tr>
         </thead>
@@ -30,17 +33,44 @@ $page = "index.php";
     if ($rs->num_rows > 0) {
         // output data of each row
         while($row = $rs->fetch_assoc()) {
+
+          //update port
+          $rs1111 = query("select * from dataImport where label='".$row['coin']."' order by datetime,id DESC limit 1");
+          //query("select a.*,b.data,b.datetime from port as a inner join dataImport as b on a.coin=b.label where a.sts=1");
+          if($rs1111->num_rows>0) {
+            while($row1111 = $rs1111->fetch_assoc()) {
+              $data = json_decode($row1111['data']);
+              $pricesell = $data->quote->THB->price;
+              $q_update = query("update port set sell='".$pricesell."',mod_user='system',mod_date='".date('Y-m-d H:i:s')."' where coin={$row['coin']}");
+            }
+          }
+
+//end update port
+$color= '';
+$symbol = "";
+if($pricesell>$row['buy']) {
+  $color = "color:green";
+  $symbol ="+";
+}else if(($pricesell-$row['buy'])<0){
+ // die($pricesell-$row['buy']);
+  $color = "color:red";
+}
+
 ?>
 
             <tr>
                 <td><?php echo $row['coin'];?></td>
-                <td><?php echo number_format($row['amount']);?></td>
-                <td><?php echo number_format($row['buy']);?></td>
-                <td><?php echo number_format($row['sell']);?></td>
+                <td><?php echo ($row['amount']);?></td>
+                <td><?php echo ($row['buy']);?></td>
+                <td><?php echo ($row['buy']*$row['amount']);?></td>
+                <td><?php echo ($pricesell);?></td>
+                <td><?php echo ($pricesell*$row['amount']);?></td>
+                <td style="<?php echo $color;?>"><?php echo $symbol.(($pricesell*$row['amount'])-($row['buy']*$row['amount']));?></td>
                 <td><?php echo date2thai($row['mod_date']);?></td>
                 <td width="10%">
+                      <a href="<?php echo $base_url.'chart.php?language='.$_GET['language'].'&id='.$row['id'];?>" target="_blank" type="button" class="btn btn-primary"><i class="fa fa-line-chart"></i></a>
                       <button data-toggle="modal" data-target="#myModalEdit<?php echo $row['id'];?>" type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
-                      <button onclick="if(confirm('ยืนยัน ลบ!')){dlt(<?php echo $row['id'];?>,<?php echo $row['member_id'];?>)}" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                      <button onclick="if(confirm('Confirm Delete!')){dlt(<?php echo $row['id'];?>,<?php echo $row['member_id'];?>)}" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
                                       <!-- Modal -->
@@ -52,7 +82,7 @@ $page = "index.php";
                             <div class="modal-body modal-p" style="">
                                 <div class="row">
                                     <div class="col-12 text-center" style="padding-left: 30px;padding-right: 30px;">
-                                        <h2 style="text-align:center" class="font-weight-bold font-title text-h5 text-center">แก้ไขรายการ</h2>
+                                        <h2 style="text-align:center" class="font-weight-bold font-title text-h5 text-center"><?php echo label('edit_title');?></h2>
                                     </div>
                                 </div>
                                 <form id="formEdit<?php echo $row['id'];?>" method="post">
@@ -64,42 +94,42 @@ $page = "index.php";
                                     
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Coin <font color="red">*</font></label>
-                                            <input type="text" readonly class="form-control" name="coin" placeholder="Coin" value="<?php echo $row['coin'];?>">
+                                            <label><?php echo label('coin_symbol');?><font color="red">*</font></label>
+                                            <input type="text" readonly class="form-control" name="coin" placeholder=<?php echo label('coin_symbol');?>" value="<?php echo $row['coin'];?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Buy</label>
-                                            <input type="number" min=1 class="form-control" name="buy" placeholder="Buy" value="<?php echo $row['buy'];?>">
+                                            <label><?php echo label('price_buy');?></label>
+                                            <input type="number" min=1 class="form-control" name="buy" onkeyup="$('#sell<?php echo $row['id'];?>').val($(this).val())" placeholder="<?php echo label('price_buy');?>" value="<?php echo $row['buy'];?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Amount</label>
-                                            <input type="number" min=1 class="form-control" name="amount" placeholder="Amount" value="<?php echo $row['amount'];?>">
+                                            <label><?php echo label('amount');?></label>
+                                            <input type="number" min=1 class="form-control" name="amount" placeholder="<?php echo label('amount');?>" value="<?php echo $row['amount'];?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Sell</label>
-                                            <input type="number" min=1 class="form-control" name="sell" placeholder="Sell" value="<?php echo $row['sell'];?>">
+                                            <label><?php echo label('price_sell');?></label>
+                                            <input type="number" min=1 class="form-control" id="sell<?php echo $row['id'];?>" name="sell" placeholder="<?php echo label('price_sell');?>" value="<?php echo $pricesell;?>">
                                         </div>
                                     </div>
                                     
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>เพิ่ม : </label>
+                                            <label>Add : </label>
                                             <?php echo $row['add_user'];?> <?php echo date2Thai($row['add_date']);?>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>ล่าสุด : </label>
+                                            <label>Update : </label>
                                             <?php echo $row['mod_user'];?> <?php echo date2Thai($row['mod_date']);?>
                                         </div>
                                     </div>
@@ -107,8 +137,8 @@ $page = "index.php";
                                     <br/>
                                     <div class="row">
                                         <div class="col-12 text-center" style="text-align:center">
-                                            <a href="#" onclick="editSave(<?php echo $row['id'];?>);" id="bt_editSubmit<?php echo $row['id'];?>" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</a>
-                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> ยกเลิก</a>
+                                            <a href="#" onclick="editSave(<?php echo $row['id'];?>);" id="bt_editSubmit<?php echo $row['id'];?>" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo label('save');?></a>
+                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> <?php echo label('cancel');?></a>
                                         </div>
                                     </div>
                                 </form>
@@ -122,7 +152,7 @@ $page = "index.php";
     }else {
 ?>
         <tr>
-            <td colspan=7>No record...</td>
+            <td colspan=7><?php echo label('no_record');?>...</td>
         </tr>
 <?php
     }
@@ -131,11 +161,14 @@ $page = "index.php";
         </tbody>
         <tfoot>
             <tr>
-				<th>Coin</th>
-				<th>Amount</th>
-                <th>Buy</th>
-                <th>Sell</th>
-                <th>Update</th>
+                <th><?php echo label('coin');?></th>
+				        <th><?php echo label('amount');?></th>
+                <th><?php echo label('buy_unit');?></th>
+                <th><?php echo label('buy');?></th>
+                <th><?php echo label('sell_unit');?></th>
+                <th><?php echo label('sell');?></th>
+                <th><?php echo label('difference');?></th>
+                <th><?php echo label('update');?></th>
                 <th>#</th>
             </tr>
         </tfoot>
@@ -152,7 +185,7 @@ $page = "index.php";
                             <div class="modal-body modal-p" style="">
                                 <div class="row">
                                     <div class="col-12 text-center" style="padding-left: 30px;padding-right: 30px;">
-                                        <h2 style="text-align:center" class="font-weight-bold font-title text-h5 text-center">เพิ่มรายการใหม่</h2>
+                                        <h2 style="text-align:center" class="font-weight-bold font-title text-h5 text-center"><?php echo label('add_title');?></h2>
                                     </div>
                                 </div>
                                 <form id="formAdd" method="post">
@@ -163,37 +196,37 @@ $page = "index.php";
                                                                     
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Coin <font color="red">*</font></label>
-                                            <input type="text" class="form-control" name="coin" placeholder="Coin" value="">
+                                            <label><?php echo label('coin_symbol');?><font color="red">*</font></label>
+                                            <input autofocus type="text" class="form-control" name="coin" placeholder="<?php echo label('coin_symbol');?>" value="">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Buy</label>
-                                            <input type="number" min=1 class="form-control" name="buy" placeholder="Buy" value="0">
+                                            <label><?php echo label('price_buy');?></label>
+                                            <input type="number" min=1 class="form-control" onkeyup="$('#sell').val($(this).val())" name="buy" placeholder="<?php echo label('price_buy');?>" value="0">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Amount</label>
-                                            <input type="number" min=1 class="form-control" name="amount" placeholder="Amount" value="1">
+                                            <label><?php echo label('amount');?></label>
+                                            <input type="number" min=1 class="form-control" name="<?php echo label('amount');?>" placeholder="Amount" value="1">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Sell</label>
-                                            <input type="number" min=1 class="form-control" name="sell" placeholder="Sell" value="0">
+                                            <label><?php echo label('price_sell');?></label>
+                                            <input type="number" min=1 class="form-control" id="sell" name="sell" placeholder="<?php echo label('price_sell');?>" value="0">
                                         </div>
                                     </div>
 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12 text-center" style="text-align:center">
-                                            <a href="#" id="bt_addSubmit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</a>
-                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> ยกเลิก</a>
+                                            <a href="#" id="bt_addSubmit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo label('save');?></a>
+                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> <?php echo label('cancel');?></a>
                                         </div>
                                     </div>
                                 </form>
@@ -348,5 +381,6 @@ function dlt(id,member_id) {
     });
 }
 
+$("li.index").addClass('active');
 
 </script>

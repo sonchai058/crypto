@@ -1,10 +1,18 @@
 <?php
 session_start();
 
+include('_label.php');
+
 $conn = null;
 
 $base_url = "http://localhost/crypto/";
 connectDB();
+
+if(!isset($_GET['language'])) {
+    $_GET['language'] = "ENG";
+}else if($_GET['language']=='') {
+    $_GET['language'] = "ENG";
+}
 
 function checkLogin() {
     global $conn;

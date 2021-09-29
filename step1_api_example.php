@@ -1,14 +1,21 @@
 <?php
 include('_inc.php');
 header('Content-Type: application/json');
-?>
 
-<?php
+$start=1;
+if(isset($_GET['start'])){
+  $start = $_GET['start'];
+}
+$limit=5000;
+if(isset($_GET['limit'])){
+  $limit = $_GET['limit'];
+}
+
 $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
 $parameters = [
-  'start' => '1',
-  'limit' => '5000',
-  'convert' => 'BTH'
+  'start' => $start,
+  'limit' => $limit,
+  'convert' => 'THB'
 ];
 
 $headers = [

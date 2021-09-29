@@ -50,7 +50,7 @@ checkLogin();
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.html" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
 	  <b class="logo-mini">
 		  <span class="light-logo"><img src="<?php echo $base_url;?>images/logo-light.png" alt="logo"></span>
@@ -333,30 +333,30 @@ checkLogin();
                 <img src="<?php echo $base_url;?>images/user2-160x160.png" class="float-left rounded-circle" alt="User Image">
 
                 <p>
-                  Romi Roy
-                  <small class="mb-5">jb@gmail.com</small>
-                  <a href="#" class="btn btn-danger btn-sm btn-rounded">View Profile</a>
+                  <?php echo $_SESSION['login']['name'].' '.$_SESSION['login']['lastname'];?>
+                  <small class="mb-5"><?php echo $_SESSION['login']['email'];?></small>
+                  <a href="#" class="btn btn-danger btn-sm btn-rounded"><?php echo label('view_profile');?></a>
                 </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row no-gutters">
                   <div class="col-12 text-left">
-                    <a href="#"><i class="ion ion-person"></i> My Profile</a>
+                    <a href="#"><i class="ion ion-person"></i> <?php echo label('my_profile');?></a>
                   </div>
                   <div class="col-12 text-left">
-                    <a href="#"><i class="ion ion-email-unread"></i> Inbox</a>
+                    <a href="#"><i class="ion ion-email-unread"></i> <?php echo label('inbox');?></a>
                   </div>
                   <div class="col-12 text-left">
-                    <a href="#"><i class="ion ion-settings"></i> Setting</a>
+                    <a href="#"><i class="ion ion-settings"></i> <?php echo label('setting');?></a>
                   </div>
 				<div role="separator" class="divider col-12"></div>
 				  <div class="col-12 text-left">
-                    <a href="#"><i class="ti-settings"></i> Account Setting</a>
+                    <a href="#"><i class="ti-settings"></i> <?php echo label('account_setting');?></a>
                   </div>
 				<div role="separator" class="divider col-12"></div>
 				  <div class="col-12 text-left">
-                    <a href="<?php echo $base_url.'logout.php';?>"><i class="fa fa-power-off"></i> Logout</a>
+                    <a href="<?php echo $base_url.'logout.php';?>"><i class="fa fa-power-off"></i> <?php echo label('logout');?></a>
                   </div>				
                 </div>
                 <!-- /.row -->
@@ -373,7 +373,7 @@ checkLogin();
       </div>
     </nav>
   </header>
-  
+
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar -->
@@ -381,7 +381,7 @@ checkLogin();
       <!-- Sidebar user panel -->
       <div class="user-panel">
 		 <div class="ulogo">
-			 <a href="index.html">
+			 <a href="#">
 			  <!-- logo for regular state and mobile devices -->
 			  <span><b>Crypto </b>Admin</span>
 			</a>
@@ -400,17 +400,17 @@ checkLogin();
       <ul class="sidebar-menu" data-widget="tree">
 		<li class="nav-devider"></li>
         <li class="header nav-small-cap">PERSONAL</li>
-        <li <?php if(basename($_SERVER['REQUEST_URI'])=='index.php' || basename($_SERVER['REQUEST_URI'])=='crypto'){?> class="active" <?php }?>>
-          <a href="<?php echo $base_url.'index.php';?>">
-            <i class="icon-home"></i> <span>Dashboard</span>
+        <li class="index">
+          <a href="<?php echo $base_url.'index.php?language='.$_GET['language'];?>">
+            <i class="icon-home"></i> <span><?php echo label('dashboard');?></span>
           </a>
         </li>
         <?php 
         if($_SESSION['login']['member_type_id']=='2') {
         ?>
-        <li <?php if(basename($_SERVER['REQUEST_URI'])=='members.php'){?> class="active" <?php }?>>
-          <a href="<?php echo $base_url.'members.php';?>">
-          <i class="fa fa-users" aria-hidden="true"></i> <span>Members</span>
+        <li class="members">
+          <a href="<?php echo $base_url.'members.php?language='.$_GET['language'];?>">
+          <i class="fa fa-users" aria-hidden="true"></i> <span><?php echo label('members');?></span>
           </a>
         </li>
         <?php
@@ -418,7 +418,7 @@ checkLogin();
         ?>
         <li>
           <a href="<?php echo $base_url.'logout.php';?>">
-            <i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout</span>
+            <i class="fa fa-sign-out" aria-hidden="true"></i> <span><?php echo label('logout');?></span>
           </a>
         </li>
         
@@ -677,7 +677,7 @@ checkLogin();
           </ul>
         </li>
 		<li>
-          <a href="pages/email/index.html">
+          <a href="pages/email/#">
             <i class="icon-envelope-open"></i> <span>Emails</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>

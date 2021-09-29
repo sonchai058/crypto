@@ -11,18 +11,18 @@ $page = "member.php";
     <section class="content">
     <div class="row">
         <div class="col-12 text-right">
-            <button type="button" data-toggle="modal" data-target="#myModalAdd" class="btn btn-success btn-md">+ ADD</button>
+            <button type="button" data-toggle="modal" data-target="#myModalAdd" class="btn btn-success btn-md"><?php echo label('add');?></button>
         </div>
     </div>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Fullname</th>
-                <th>Username</th>
-                <th>Telno</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Update</th>
+                <th><?php echo label('fullname');?></th>
+                <th><?php echo label('username');?></th>
+                <th><?php echo label('telno');?></th>
+                <th><?php echo label('email');?></th>
+                <th><?php echo label('address');?></th>
+                <th><?php echo label('update');?></th>
                 <th>#</th>
             </tr>
         </thead>
@@ -43,7 +43,7 @@ $page = "member.php";
                 <td><?php echo date2thai($row['mod_date']);?></td>
                 <td width="10%">
                       <button data-toggle="modal" data-target="#myModalEdit<?php echo $row['id'];?>" type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
-                      <button onclick="if(confirm('ยืนยัน ลบ!')){dlt(<?php echo $row['id'];?>)}" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                      <button onclick="if(confirm('Confirm Delete!')){dlt(<?php echo $row['id'];?>)}" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
                                       <!-- Modal -->
@@ -55,7 +55,7 @@ $page = "member.php";
                             <div class="modal-body modal-p" style="">
                                 <div class="row">
                                     <div class="col-12 text-center" style="padding-left: 30px;padding-right: 30px;">
-                                        <h2 style="text-align:center" class="font-weight-bold font-title text-h5 text-center">แก้ไขรายการ</h2>
+                                        <h2 style="text-align:center" class="font-weight-bold font-title text-h5 text-center"><?php echo label('edit_title');?></h2>
                                     </div>
                                 </div>
                                 <form id="formEdit<?php echo $row['id'];?>" method="post">
@@ -65,63 +65,63 @@ $page = "member.php";
                                     
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Name <font color="red">*</font></label>
-                                            <input type="text" class="form-control" name="name" placeholder="Name" value="<?php echo $row['name'];?>">
+                                            <label><?php echo label('name');?> <font color="red">*</font></label>
+                                            <input type="text" class="form-control" name="name" placeholder="<?php echo label('name');?>" value="<?php echo $row['name'];?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Lastname</label>
-                                            <input type="text" class="form-control" name="lastname" placeholder="Lastname" value="<?php echo $row['lastname'];?>">
+                                            <label><?php echo label('lastname');?> </label>
+                                            <input type="text" class="form-control" name="lastname" placeholder="<?php echo label('lastname');?>" value="<?php echo $row['lastname'];?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Username <font color="red">*</font></label>
-                                            <input type="text" readonly class="form-control" name="username" placeholder="Username" value="<?php echo $row['username'];?>">
+                                            <label><?php echo label('username');?> <font color="red">*</font></label>
+                                            <input type="text" readonly class="form-control" name="username" placeholder="<?php echo label('username');?>" value="<?php echo $row['username'];?>">
                                         </div>
                                     </div>
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Password <font color="red">*</font></label>
-                                            <input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo $row['password'];?>">
+                                            <label><?php echo label('password');?> <font color="red">*</font></label>
+                                            <input type="password" class="form-control" name="password" placeholder="<?php echo label('password');?>" value="<?php echo $row['password'];?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Telno <font color="red">*</font></label>
-                                            <input type="text" class="form-control" name="telno" placeholder="Tel no" value="<?php echo $row['telno'];?>">
+                                            <label> <?php echo label('telno');?> <font color="red">*</font></label>
+                                            <input type="text" class="form-control" name="telno" placeholder="<?php echo label('telno');?>" value="<?php echo $row['telno'];?>">
                                         </div>
                                     </div>
                                     <br/> 
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Email <font color="red">*</font></label>
-                                            <input type="email" readonly class="form-control" name="email" placeholder="Email" value="<?php echo $row['email'];?>">
+                                            <label><?php echo label('email');?> <font color="red">*</font></label>
+                                            <input type="email" readonly class="form-control" name="email" placeholder="<?php echo label('email');?>" value="<?php echo $row['email'];?>">
                                         </div>
                                     </div>
                                     <br/> 
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Address</label>
-                                            <textarea class="form-control" name="address" placeholder="Address"><?php echo $row['address'];?></textarea>
+                                            <label><?php echo label('address');?> </label>
+                                            <textarea class="form-control" name="address" placeholder="<?php echo label('address');?>"><?php echo $row['address'];?></textarea>
                                         </div>
                                     </div>
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>เพิ่ม : </label>
+                                            <label>Add : </label>
                                             <?php echo $row['add_user'];?> <?php echo date2Thai($row['add_date']);?>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>ล่าสุด : </label>
+                                            <label>Update : </label>
                                             <?php echo $row['mod_user'];?> <?php echo date2Thai($row['mod_date']);?>
                                         </div>
                                     </div>
@@ -129,8 +129,8 @@ $page = "member.php";
                                     <br/>
                                     <div class="row">
                                         <div class="col-12 text-center" style="text-align:center">
-                                            <a href="#" onclick="editSave(<?php echo $row['id'];?>);" id="bt_editSubmit<?php echo $row['id'];?>" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</a>
-                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> ยกเลิก</a>
+                                            <a href="#" onclick="editSave(<?php echo $row['id'];?>);" id="bt_editSubmit<?php echo $row['id'];?>" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo label('save');?></a>
+                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> <?php echo label('cancel');?></a>
                                         </div>
                                     </div>
                                 </form>
@@ -144,7 +144,7 @@ $page = "member.php";
     }else {
 ?>
         <tr>
-            <td colspan=6>No record...</td>
+            <td colspan=6><?php echo label('no_record');?>...</td>
         </tr>
 <?php
     }
@@ -153,12 +153,12 @@ $page = "member.php";
         </tbody>
         <tfoot>
             <tr>
-                <th>Fullname</th>
-                <th>Username</th>
-                <th>Telno</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Update</th>
+                <th><?php echo label('fullname');?></th>
+                <th><?php echo label('username');?></th>
+                <th><?php echo label('telno');?></th>
+                <th><?php echo label('email');?></th>
+                <th><?php echo label('address');?></th>
+                <th><?php echo label('update');?></th>
                 <th>#</th>
             </tr>
         </tfoot>
@@ -175,7 +175,7 @@ $page = "member.php";
                             <div class="modal-body modal-p" style="">
                                 <div class="row">
                                     <div class="col-12 text-center" style="padding-left: 30px;padding-right: 30px;">
-                                        <h2 style="text-align:center" class="font-weight-bold font-title text-h5 text-center">เพิ่มรายการใหม่</h2>
+                                        <h2 style="text-align:center" class="font-weight-bold font-title text-h5 text-center"><?php echo label('add_title');?></h2>
                                     </div>
                                 </div>
                                 <form id="formAdd" method="post">
@@ -183,58 +183,59 @@ $page = "member.php";
                                     
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Name <font color="red">*</font></label>
-                                            <input type="text" class="form-control" name="name" placeholder="Name">
+                                            <label><?php echo label('name');?> <font color="red">*</font></label>
+                                            <input type="text" class="form-control" name="name" placeholder="<?php echo label('name');?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Lastname</label>
-                                            <input type="text" class="form-control" name="lastname" placeholder="Lastname">
+                                            <label><?php echo label('lastname');?> </label>
+                                            <input type="text" class="form-control" name="lastname" placeholder="<?php echo label('lastname');?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Username <font color="red">*</font></label>
-                                            <input type="text" class="form-control" name="username" placeholder="Username">
+                                            <label><?php echo label('username');?> <font color="red">*</font></label>
+                                            <input type="text" class="form-control" name="username" placeholder="<?php echo label('username');?>">
                                         </div>
                                     </div>
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Password <font color="red">*</font></label>
-                                            <input type="password" class="form-control" name="password" placeholder="Password">
-                                        </div>
-                                    </div> 
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <label>Telno <font color="red">*</font></label>
-                                            <input type="text" class="form-control" name="telno" placeholder="Tel no">
+                                            <label><?php echo label('password');?> <font color="red">*</font></label>
+                                            <input type="password" class="form-control" name="password" placeholder="<?php echo label('password');?>">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Email <font color="red">*</font></label>
-                                            <input type="email" class="form-control" name="email" placeholder="Email">
+                                            <label><?php echo label('telno');?> <font color="red">*</font></label>
+                                            <input type="text" class="form-control" name="telno" placeholder="<?php echo label('telno');?>">
+                                        </div>
+                                    </div> 
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label><?php echo label('email');?> <font color="red">*</font></label>
+                                            <input type="email" class="form-control" name="email" placeholder="<?php echo label('email');?>">
                                         </div>
                                     </div> 
                                     <br/>
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <label>Address</label>
-                                            <textarea class="form-control" name="address" placeholder="Address"></textarea>
+                                            <label><?php echo label('address');?> </label>
+                                            <textarea class="form-control" name="address" placeholder="<?php echo label('address');?>"></textarea>
                                         </div>
                                     </div>
 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12 text-center" style="text-align:center">
-                                            <a href="#" id="bt_addSubmit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</a>
-                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> ยกเลิก</a>
+                                            <a href="#" id="bt_addSubmit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo label('save');?></a>
+                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> <?php echo label('cancel');?></a>
                                         </div>
                                     </div>
                                 </form>
@@ -401,5 +402,6 @@ function dlt(id) {
     });
 }
 
+$("li.members").addClass('active');
 
 </script>
