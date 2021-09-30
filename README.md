@@ -63,15 +63,3 @@ https://www.codegrepper.com/code-examples/php/how+to+make+a+variable+global+in+p
 
 
 https://datatables.net/examples/styling/bootstrap4
-
-
-เรียก API จะบันทึกแต่ที่ port มีเท่านั้น เนื่องจากรายการมากกว่า 1,700+ จะ timeout
-จำนวนสกุลเงิน: 6,486 มูลค่าตลาดทั้งหมด: $1,871,683,883,554 ปริมาณ (24 ชม.): $93,556,230,277
-API Call Update
-step1_api_example.php
-step1_api_example.php?start=5000&limit=5000
-สามารถรัน Cronjob ได้เลย หรือ รันผ่าน URL
-
-วิธีใช้ label
-<?php echo label('dashboard');?>
-ไฟล์ _label.php
