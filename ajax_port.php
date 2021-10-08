@@ -6,13 +6,12 @@ connectDB();
 
 $state = isset($_GET['state'])?$_GET['state']:'';
 
-if($state=='add') {
 
+if($state=='add') {
 		$coin = htmlspecialchars($_POST['coin']);
         $buy = htmlspecialchars($_POST['buy']);
         $amount = htmlspecialchars($_POST['amount']);
         $sell = htmlspecialchars($_POST['sell']);
-
         $member_id = htmlspecialchars($_POST['member_id']);
 
 		$as = query("select * from port where coin='{$coin}' and sts=1 and member_id=".$_SESSION['login']['id']." limit 1");

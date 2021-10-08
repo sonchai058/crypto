@@ -1,5 +1,6 @@
 ﻿<?php
 require('header.php');
+
 $page = "index.php";
 ?>
 
@@ -112,6 +113,8 @@ if($pricesell>$row['buy']) {
                                             <input type="number" min=1 class="form-control" name="amount" placeholder="<?php echo label('amount');?>" value="<?php echo $row['amount'];?>">
                                         </div>
                                     </div> 
+                                    <input type="hidden" min=1 class="form-control" id="sell<?php echo $row['id'];?>" name="sell" placeholder="<?php echo label('price_sell');?>" value="<?php echo $pricesell;?>">
+                                    <!--
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
@@ -119,6 +122,7 @@ if($pricesell>$row['buy']) {
                                             <input type="number" min=1 class="form-control" id="sell<?php echo $row['id'];?>" name="sell" placeholder="<?php echo label('price_sell');?>" value="<?php echo $pricesell;?>">
                                         </div>
                                     </div>
+-->
                                     
                                     <br/>
                                     <div class="row">
@@ -211,9 +215,11 @@ if($pricesell>$row['buy']) {
                                     <div class="row">
                                         <div class="col-12">
                                             <label><?php echo label('amount');?></label>
-                                            <input type="number" min=1 class="form-control" name="<?php echo label('amount');?>" placeholder="Amount" value="1">
+                                            <input type="number" min=1 class="form-control" name="amount" placeholder="<?php echo label('amount');?>" value="1">
                                         </div>
                                     </div> 
+                                    <input type="hidden" min=1 class="form-control" id="sell" name="sell" placeholder="<?php echo label('price_sell');?>" value="0">
+    <!--
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
@@ -221,6 +227,7 @@ if($pricesell>$row['buy']) {
                                             <input type="number" min=1 class="form-control" id="sell" name="sell" placeholder="<?php echo label('price_sell');?>" value="0">
                                         </div>
                                     </div>
+  -->
 
                                     <br/>
                                     <div class="row">

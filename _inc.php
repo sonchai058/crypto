@@ -5,7 +5,7 @@ include('_label.php');
 
 $conn = null;
 
-$base_url = "http://localhost/crypto/";
+$base_url = "http://coindcatoday.com/";
 connectDB();
 
 if(!isset($_GET['language'])) {
@@ -25,7 +25,7 @@ function checkLogin() {
 function connectDB() {
     global $conn;
 
-    $servername = "119.59.116.231:3306";
+    $servername = "localhost";
     $username = "coindcatod";
     $password = "1q2w3e4r^^";
     $dbname = "coindcatod_ay";
