@@ -16,7 +16,7 @@ $label = array(
     'coin'=>array('ENG'=>'Coin','TH'=>'เหรียญ'),
     'amount'=>array('ENG'=>'Amount','TH'=>'จำนวน'),
     'buy_unit'=>array('ENG'=>'Buy/Unit','TH'=>'ซื้อ/หน่วย'),
-    'buy'=>array('ENG'=>'Buy (THB)','TH'=>'ซื้อ (บาท)'),
+    'buy'=>array('ENG'=>'Total (THB)','TH'=>'ราคารวม (บาท)'),
     'sell_unit'=>array('ENG'=>'Sell/Unit','TH'=>'ขาย/หน่วย'),
     'sell'=>array('ENG'=>'Sell (THB)','TH'=>'ขาย (บาท)'),
     'difference'=>array('ENG'=>'Difference','TH'=>'ความต่าง'),
@@ -24,8 +24,9 @@ $label = array(
 
 
     'coin_symbol'=>array('ENG'=>'Coin Symbol ETH, BTC','TH'=>'เหรียญ เช่น ETH, BTC'),
-    'price_buy'=>array('ENG'=>'Price of Buy (THB)','TH'=>'ราคาซื้อ (บาท)'),
-    'price_sell'=>array('ENG'=>'Price of Sell (THB)','TH'=>'ราคาขาย (บาท)'),
+    'price_buy'=>array('ENG'=>'Price Buy (THB)','TH'=>'ราคาซื้อ (บาท)'),
+    'price_unit'=>array('ENG'=>'Price : Unit (THB)','TH'=>'ราคาเหรียญ:บาท'),
+    'price_sell'=>array('ENG'=>'Price Sell (THB)','TH'=>'ราคาขาย (บาท)'),
 
 
 

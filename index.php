@@ -23,7 +23,7 @@ $page = "index.php";
                 <th><?php echo label('buy');?></th>
                 <th><?php echo label('sell_unit');?></th>
                 <th><?php echo label('sell');?></th>
-                <th><?php echo label('difference');?></th>
+                <th>+/-</th>
                 <th><?php echo label('update');?></th>
                 <th>#</th>
             </tr>
@@ -36,12 +36,11 @@ $page = "index.php";
         while($row = $rs->fetch_assoc()) {
 
           //update port
-          $rs1111 = query("select * from dataImport where label='".$row['coin']."' order by datetime,id DESC limit 1");
+          $rs1111 = query("select * from dataImport where label='".$row['coin']."' order by datetime DESC limit 1");
           //query("select a.*,b.data,b.datetime from port as a inner join dataImport as b on a.coin=b.label where a.sts=1");
           if($rs1111->num_rows>0) {
             while($row1111 = $rs1111->fetch_assoc()) {
-              $data = json_decode($row1111['data']);
-              $pricesell = $data->quote->THB->price;
+              $pricesell = $row1111['price'];
               $q_update = query("update port set sell='".$pricesell."',mod_user='system',mod_date='".date('Y-m-d H:i:s')."' where coin={$row['coin']}");
             }
           }
@@ -103,10 +102,19 @@ if($pricesell>$row['buy']) {
                                     <div class="row">
                                         <div class="col-12">
                                             <label><?php echo label('price_buy');?></label>
-                                            <input type="number" min=1 class="form-control" name="buy" onkeyup="$('#sell<?php echo $row['id'];?>').val($(this).val())" placeholder="<?php echo label('price_buy');?>" value="<?php echo $row['buy'];?>">
+                                            <input type="number" min=1 class="form-control" name="total" onkeyup="" placeholder="<?php echo label('price_buy');?>" value="<?php echo $row['total'];?>">
+                                        </div>
+                                    </div> 
+
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label><?php echo label('price_unit');?></label>
+                                            <input type="number" min=1 class="form-control" readonly name="buy" placeholder="<?php echo label('price_unit');?>" value="<?php echo $row['buy'];?>">
                                         </div>
                                     </div> 
                                     <br/>
+
                                     <div class="row">
                                         <div class="col-12">
                                             <label><?php echo label('amount');?></label>
@@ -156,7 +164,7 @@ if($pricesell>$row['buy']) {
     }else {
 ?>
         <tr>
-            <td colspan=7><?php echo label('no_record');?>...</td>
+            <td colspan=9><?php echo label('no_record');?>...</td>
         </tr>
 <?php
     }
@@ -171,7 +179,7 @@ if($pricesell>$row['buy']) {
                 <th><?php echo label('buy');?></th>
                 <th><?php echo label('sell_unit');?></th>
                 <th><?php echo label('sell');?></th>
-                <th><?php echo label('difference');?></th>
+                <th>+/-</th>
                 <th><?php echo label('update');?></th>
                 <th>#</th>
             </tr>
@@ -196,19 +204,27 @@ if($pricesell>$row['buy']) {
                                     <input type="hidden" name="sts" value="1">
                                     
                                     <input type="hidden" name="sts" value="<?php echo $row['sts'];?>">
-									<input type="hidden" name="member_id" value="<?php echo $SESSION['login']['id'];?>">
+                                    <input type="hidden" name="flag" value="0">
+									                  <input type="hidden" name="member_id" value="<?php echo $SESSION['login']['id'];?>">
                                                                     
                                     <div class="row">
                                         <div class="col-12">
                                             <label><?php echo label('coin_symbol');?><font color="red">*</font></label>
-                                            <input autofocus type="text" class="form-control" name="coin" placeholder="<?php echo label('coin_symbol');?>" value="">
+                                            <input onkeyup="callCoin($(this).val());"  autofocus type="text" class="form-control" name="coin" placeholder="<?php echo label('coin_symbol');?>" value="">
                                         </div>
                                     </div> 
                                     <br/>
                                     <div class="row">
                                         <div class="col-12">
                                             <label><?php echo label('price_buy');?></label>
-                                            <input type="number" min=1 class="form-control" onkeyup="$('#sell').val($(this).val())" name="buy" placeholder="<?php echo label('price_buy');?>" value="0">
+                                            <input type="number" min=1 class="form-control" onkeyup="console.log($('#formAdd input[name=buy]').val());$('#formAdd input[name=amount]').val($(this).val()/$('#formAdd input[name=buy]').val())" name="total" placeholder="<?php echo label('price_buy');?>" value="1">
+                                        </div>
+                                    </div> 
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label><?php echo label('price_unit');?></label>
+                                            <input type="number" min=1 class="form-control" readonly name="buy" placeholder="<?php echo label('price_unit');?>" value="1">
                                         </div>
                                     </div> 
                                     <br/>
@@ -218,7 +234,7 @@ if($pricesell>$row['buy']) {
                                             <input type="number" min=1 class="form-control" name="amount" placeholder="<?php echo label('amount');?>" value="1">
                                         </div>
                                     </div> 
-                                    <input type="hidden" min=1 class="form-control" id="sell" name="sell" placeholder="<?php echo label('price_sell');?>" value="0">
+                                    <input type="hidden" min=1 class="form-control" id="sell" name="sell" placeholder="<?php echo label('price_sell');?>" value="1">
     <!--
                                     <br/>
                                     <div class="row">
@@ -314,6 +330,9 @@ function editSave(id) {
 }
 
 $("#bt_addSubmit").click(function(){
+
+  if($("#formAdd input[name='flag']").val()==0) {$("#formAdd input[name='coin']").select(); alert('Label Coin Not Found..'); return false;}
+
   var chk = true;
   //protection
   if($("#formAdd input[name='coin']").val().length<1) {
@@ -389,5 +408,41 @@ function dlt(id,member_id) {
 }
 
 $("li.index").addClass('active');
+
+
+function callCoin(label) {
+  $.ajax({
+      type: "POST",
+      url: '<?php echo $base_url.'ajax_port.php?state=get';?>',
+      data: 'label='+label, // serializes the form's elements.
+      success: function(data)
+      {
+        console.log(data);
+        if(data.status=='success') {
+          //
+          $("#formAdd input[name='flag']").val("1");
+          $("#formAdd input[name='buy']").val(data.rs.price);
+          $("#formAdd input[name='sell']").val(data.rs.price);
+          $("#formAdd input[name='amount']").val($("#formAdd input[name='total']").val()/data.rs.price);
+        }else {
+            //alert(data.message);
+            $("#formAdd input[name='flag']").val("0");
+            $("#formAdd input[name='buy']").val("1");
+            $("#formAdd input[name='sell']").val("1");
+            $("#formAdd input[name='amount']").val("1");
+        }
+      },error  : function(e) {
+        console.log(e);
+        $("#formAdd input[name='flag']").val("0");
+        $("#formAdd input[name='buy']").val("1");
+        $("#formAdd input[name='sell']").val("1");
+        $("#formAdd input[name='amount']").val("1");
+      }
+    });
+}
+
+$('#myModalAdd').on('shown.bs.modal', function () {
+  $('#formAdd input[name=coin]').trigger('focus');
+})
 
 </script>

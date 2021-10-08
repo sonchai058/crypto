@@ -5,7 +5,8 @@ include('_label.php');
 
 $conn = null;
 
-$base_url = "http://coindcatoday.com/";
+//$base_url = "http://coindcatoday.com/";
+$base_url = "http://localhost/crypto/";
 connectDB();
 
 if(!isset($_GET['language'])) {
@@ -25,7 +26,8 @@ function checkLogin() {
 function connectDB() {
     global $conn;
 
-    $servername = "localhost";
+    $servername = "119.59.116.231:3306";
+    //$servername = "localhost;
     $username = "coindcatod";
     $password = "1q2w3e4r^^";
     $dbname = "coindcatod_ay";
@@ -60,6 +62,10 @@ function date2thai($datetime='') {
 	$date = $arr[0];
 	$time = $arr[1];
 	return substr($date,8,2).'/'.substr($date,5,2).'/'.(substr($date,0,4)).' '.substr($time,0,5);
+}
+
+function cutNum($num, $precision = 2) {
+    return floor($num) . substr(str_replace(floor($num), '', $num), 0, $precision + 1);
 }
 
 ?>

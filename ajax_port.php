@@ -12,10 +12,11 @@ if($state=='add') {
         $buy = htmlspecialchars($_POST['buy']);
         $amount = htmlspecialchars($_POST['amount']);
         $sell = htmlspecialchars($_POST['sell']);
+        $total = htmlspecialchars($_POST['total']);
         $member_id = htmlspecialchars($_POST['member_id']);
 
 		$as = query("select * from port where coin='{$coin}' and sts=1 and member_id=".$_SESSION['login']['id']." limit 1");
-        if ($coin=='' || $buy=='' || $amount=='' || $sell=='') {
+        if ($coin=='' || $buy=='' || $amount=='' || $sell=='' || $total=='') {
              $response = array(
                  'status' => 'error',
                  'message'=> 'incomplete information Please enter correct information.!',
@@ -34,7 +35,7 @@ if($state=='add') {
 				'buy'                              => $buy,
 				'amount'                               => $amount,
 				'sell'                               => $sell,
-				'total'                               => ($buy*$amount),
+				'total'                               => $total,
 				'sts'								=>'1',
                 'member_id'                         =>@$_SESSION['login']['id'],
 				'add_user'							=>@$_SESSION['login']['username'],
@@ -59,11 +60,12 @@ if($state=='add') {
     $buy = htmlspecialchars($_POST['buy']);
     $amount = htmlspecialchars($_POST['amount']);
     $sell = htmlspecialchars($_POST['sell']);
+    $total = htmlspecialchars($_POST['total']);
 
     $member_id = htmlspecialchars($_POST['member_id']);
     $id = htmlspecialchars($_POST['id']);
 
-    if ($coin=='' || $buy=='' || $amount=='' || $sell=='') {
+    if ($coin=='' || $buy=='' || $amount=='' || $sell=='' || $total=='') {
          $response = array(
              'status' => 'error',
              'message'=> 'incomplete information Please enter correct information.!',
@@ -76,7 +78,7 @@ if($state=='add') {
             'buy'                              => $buy,
             'amount'                               => $amount,
             'sell'                               => $sell,
-            'total'                               => ($buy*$amount),
+            'total'                               => ($total),
             'mod_user'							=>$_SESSION['login']['username'],
             'mod_date'							=>date("Y-m-d H:i:s")
         );
@@ -115,6 +117,38 @@ if($state=='add') {
             'message'=> 'Deleted!',
             'rs'=>$rs
         );
+    }
+    echo json_encode($response);
+}else if($state=='get') {
+    $label = htmlspecialchars($_POST['label']);
+
+    if ($label=='') {
+         $response = array(
+             'status' => 'error',
+             'message'=> 'incomplete information Please enter correct information.!',
+             'label'=>''
+        );
+    } else {
+        $rs = query("select * from dataImport where label='".$label."' order by datetime DESC limit 1");
+        $rs_arr = array();
+        if ($rs->num_rows > 0) {
+            // output data of each row
+            while($row = $rs->fetch_assoc()) {
+                $data = json_decode($row['data']);
+                $rs_arr = array('id'=>$row['id'],'label'=>$row['label'],'price'=>$row['price'],'data'=>$row);
+            }
+            $response = array(
+                'status' => 'success',
+                'message'=> '',
+                'rs'=>$rs_arr
+            );
+        }else {
+            $response = array(
+            'status' => 'error',
+            'message'=> 'incomplete information Please enter correct information.!',
+            'label'=>$label
+            );
+        }
     }
     echo json_encode($response);
 }

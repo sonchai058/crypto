@@ -38,20 +38,31 @@ $response = curl_exec($curl); // Send the request, save the response
 print_r(json_decode($response)); // print json decoded response
 
 $rs = json_decode($response);
+
+//
+
+foreach ($rs->data as $key=>$data) {
+  $row_insert = query("insert into dataImport (label,data,price) values('".$data->symbol."','".json_encode($data)."',{$data->quote->THB->price})");
+}
+
+//
+die();
+
+//
 $coin_system = query("SELECT coin FROM `port` WHERE sts=1 group by coin");
 if ($coin_system->num_rows > 0) {
-  // output data of each row
   while($row = $coin_system->fetch_assoc()) {
-
+    
     foreach ($rs->data as $key=>$data) {
       if($row['coin']==$data->symbol) {
-        $row_insert = query("insert into dataImport (label,data) values('".$data->symbol."','".json_encode($data)."')");
+        $row_insert = query("insert into dataImport (label,data,price) values('".$data->symbol."','".json_encode($data)."',{$data->quote->THB->price})");
         break;
       }
     }
 
   }
 }
+//
 
 echo json_encode(curl_close($curl)); // Close request
 
