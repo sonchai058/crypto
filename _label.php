@@ -15,10 +15,10 @@ $label = array(
 
     'coin'=>array('ENG'=>'Coin','TH'=>'เหรียญ'),
     'amount'=>array('ENG'=>'Amount','TH'=>'จำนวน'),
-    'buy_unit'=>array('ENG'=>'Buy/Unit','TH'=>'ซื้อ/หน่วย'),
-    'buy'=>array('ENG'=>'Total (THB)','TH'=>'ราคารวม (บาท)'),
-    'sell_unit'=>array('ENG'=>'Sell/Unit','TH'=>'ขาย/หน่วย'),
-    'sell'=>array('ENG'=>'Sell (THB)','TH'=>'ขาย (บาท)'),
+    'buy_unit'=>array('ENG'=>'PriceBuy/Coin','TH'=>'ราคาซื้อ/เหรียญ'),
+    'buy'=>array('ENG'=>'Total (THB)','TH'=>'ราคาซื้อรวม (บาท)'),
+    'sell_unit'=>array('ENG'=>'Current/Coin','TH'=>'ปัจจุบัน/เหรียญ'),
+    'sell'=>array('ENG'=>'Sell (THB)','TH'=>'ราคาขาย (บาท)'),
     'difference'=>array('ENG'=>'Difference','TH'=>'ความต่าง'),
     'update'=>array('ENG'=>'Update','TH'=>'อัปเดต'),
 
