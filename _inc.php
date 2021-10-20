@@ -5,7 +5,7 @@ include('_label.php');
 
 $conn = null;
 
-$base_url = "http://coindcatoday.com/";
+$base_url = "http://sjhost.sytes.net/crypto/";
 //$base_url = "http://localhost/crypto/";
 connectDB();
 
@@ -28,8 +28,8 @@ function connectDB() {
 
     //$servername = "119.59.116.231:3306";
     $servername = "localhost";
-    $username = "coindcatod";
-    $password = "1q2w3e4r^^";
+    $username = "admin";
+    $password = "1150";
     $dbname = "coindcatod_ay";
 
     // Create connection
